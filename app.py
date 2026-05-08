@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Kemenkes Branding Color identified from v1header.png
+# Kemenkes Branding Color identified from v2header.png
 KEMENKES_TEAL = "#00A99D"
 
 # CSS for a premium, polished look
@@ -23,8 +23,8 @@ st.markdown(f"""
         padding-right: 2rem;
     }}
     
-    /* v1header Image Container */
-    .v1header-container {{
+    /* v2header Image Container */
+    .v2header-container {{
         width: 100%;
         display: flex;
         justify-content: center;
@@ -32,7 +32,7 @@ st.markdown(f"""
         margin-bottom: 20px;
     }}
     
-    .v1header-container img {{
+    .v2header-container img {{
         max-width: 100%;
         height: auto;
         object-fit: contain;
@@ -89,10 +89,10 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
-# Display v1header Image
+# Display v2header Image
 try:
-    st.markdown('<div class="v1header-container"><img src="data:image/png;base64,{}" /></div>'.format(
-        base64.b64encode(open("v1header.png", "rb").read()).decode()
+    st.markdown('<div class="v2header-container"><img src="data:image/png;base64,{}" /></div>'.format(
+        base64.b64encode(open("v2header.png", "rb").read()).decode()
     ), unsafe_allow_html=True)
 except: pass
 
