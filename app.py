@@ -150,7 +150,7 @@ try:
     # Footer simple
     st.markdown("""
         <br><div style="text-align: center; color: #94a3b8; font-size: 0.85em;">
-            Dashboard Monitoring Indikator Takel PKP 2026 | Latsar CPNS Kemenkes
+            Dashboard Monitoring Indikator Takel PKP 2026 | Aktualisasi Latsar CPNS Bapelkes Cikarang
         </div>
     """, unsafe_allow_html=True)
 
