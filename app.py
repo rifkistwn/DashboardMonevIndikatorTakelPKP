@@ -87,10 +87,10 @@ st.markdown(f"""
         .block-container {{ padding-left: 0.5rem; padding-right: 0.5rem; }}
     }}
         /* Paksa background tetap putih dan teks gelap */
-    .stApp {
+    .stApp {{
         background-color: white !important;
         color: #31333f !important;
-    }
+    }}
 
     </style>
 """, unsafe_allow_html=True)
