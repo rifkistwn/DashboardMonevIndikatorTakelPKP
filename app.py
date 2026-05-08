@@ -22,6 +22,23 @@ st.markdown(f"""
         padding-left: 2rem;
         padding-right: 2rem;
     }}
+
+        /* Menyembunyikan menu titik tiga (hamburger menu) di pojok kanan atas */
+    header {visibility: hidden;}
+    
+    /* Menyembunyikan tulisan "Made with Streamlit" di bawah */
+    footer {visibility: hidden;}
+16: st.markdown(f"""
+17:     <style>
+18:     /* Tambahkan ini untuk menyembunyikan menu */
+19:     header {visibility: hidden;}
+20:     footer {visibility: hidden;}
+21:     
+22:     /* Reset padding container utama */
+23:     .block-container {{
+24:         padding-top: 0rem;
+...
+
     
     /* v2header Image Container */
     .v2header-container {{
