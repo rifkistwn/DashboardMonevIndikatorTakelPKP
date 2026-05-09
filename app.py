@@ -4,8 +4,8 @@ import base64
 
 # Set page configuration
 st.set_page_config(
-    page_title="Dashboard Monitoring Indikator Takel PKP 2026",
-    page_icon="logo.png",
+    page_title="Dashboard Indikator Dit. Takel PKP",
+    page_icon="icon.png",
     layout="wide"
 )
 
