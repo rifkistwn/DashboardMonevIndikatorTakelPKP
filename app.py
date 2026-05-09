@@ -139,7 +139,7 @@ def format_value(val, col_name=None, row_data=None):
 
 @st.cache_data
 def load_data_v6():
-    df = pd.read_excel('data_dashboard_latsar.xlsx')
+    df = pd.read_excel('v2_data_dashboard_latsar.xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     return df
 
