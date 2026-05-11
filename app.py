@@ -108,12 +108,25 @@ except: pass
 
 # Teks dan Link di atas tabel
 st.markdown("""
-    <div style="background-color: #eff6ff; padding: 15px; border-radius: 8px; border-left: 5px solid #00A99D; margin-bottom: 20px;">
-        <span style="color: #007D8C; font-weight: 500;">ℹ️ Informasi:</span> 
-        Silakan klik tautan berikut untuk melihat detail capaian indikator dan melakukan input data: 
-        <a href="https://s.kemkes.go.id/MonevIndikatorTakelPKP" target="_blank" style="color: #00A99D; font-weight: bold; text-decoration: underline;">
-            s.kemkes.go.id/MonevIndikatorTakelPKP
-        </a>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+        <div style="flex: 1; min-width: 300px; background-color: #eff6ff; padding: 15px; border-radius: 8px; border-left: 5px solid #00A99D;">
+            <span style="color: #007D8C; font-weight: 500;">ℹ️ Informasi:</span> 
+            Silakan klik tautan berikut untuk melihat detail capaian indikator dan melakukan input data: 
+            <a href="https://s.kemkes.go.id/MonevIndikatorTakelPKP" target="_blank" style="color: #00A99D; font-weight: bold; text-decoration: underline;">
+                s.kemkes.go.id/MonevIndikatorTakelPKP
+            </a>
+        </div>
+        <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <span style="font-weight: 600; color: #475569;">Keterangan Capaian:</span>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <div style="width: 12px; height: 12px; background-color: #ef4444; border-radius: 2px;"></div>
+                <span style="font-size: 0.9em; color: #ef4444; font-weight: 600;">Belum Tercapai</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <div style="width: 12px; height: 12px; background-color: #22c55e; border-radius: 2px;"></div>
+                <span style="font-size: 0.9em; color: #22c55e; font-weight: 600;">Sudah Tercapai</span>
+            </div>
+        </div>
     </div>
 """, unsafe_allow_html=True)
 
@@ -137,6 +150,19 @@ def format_value(val, col_name=None, row_data=None):
             return f"{val:g}"
     return str(val)
 
+# Helper to extract numeric value for comparison
+def get_numeric_value(val):
+    if pd.isna(val) or val == "": return None
+    if isinstance(val, (int, float)): return float(val)
+    if isinstance(val, str):
+        import re
+        # Extract first number found in string (handles "90 Kab/Kota" -> 90.0)
+        match = re.search(r"([-+]?\d*\.?\d+)", val.replace(',', '.'))
+        if match:
+            try: return float(match.group(1))
+            except: return None
+    return None
+
 @st.cache_data
 def load_data_v6():
     df = pd.read_excel('v2_data_dashboard_latsar.xlsx')
@@ -149,10 +175,26 @@ try:
     # Process for Table Display - Convert to object to avoid dtype conflicts
     display_df = df.copy().astype(object)
     cols_to_format = ['TARGET 2026', 'TW I', 'TW II', 'TW III', 'TW IV', 'GAP']
-    for idx, row in display_df.iterrows():
+    
+    tw_cols = ['TW I', 'TW II', 'TW III', 'TW IV']
+    
+    for idx, row in df.iterrows():
+        target_raw = row.get('TARGET 2026')
+        t_num = get_numeric_value(target_raw)
+        
         for col in cols_to_format:
-            if col in display_df.columns:
-                display_df.at[idx, col] = format_value(row[col], col, row)
+            if col in df.columns:
+                val = row[col]
+                formatted = format_value(val, col, row)
+                
+                # Apply conditional coloring for TW columns
+                if col in tw_cols and not pd.isna(val) and val != "":
+                    v_num = get_numeric_value(val)
+                    if v_num is not None and t_num is not None:
+                        color = "#ef4444" if v_num < t_num else "#22c55e"
+                        formatted = f'<span style="color: {color}; font-weight: bold;">{formatted}</span>'
+                
+                display_df.at[idx, col] = formatted
     
     # Display Table
     st.markdown(display_df.to_html(classes='custom-table', index=False, escape=False), unsafe_allow_html=True)
