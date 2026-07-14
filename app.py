@@ -165,7 +165,7 @@ def get_numeric_value(val):
 
 @st.cache_data
 def load_data_v6():
-    df = pd.read_excel('data_dashboard_tw2.xlsx')
+    df = pd.read_excel('data_indikator_tw2.xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     return df
 
