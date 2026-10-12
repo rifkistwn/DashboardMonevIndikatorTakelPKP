@@ -202,7 +202,7 @@ try:
     # Footer simple
     st.markdown("""
         <br><div style="text-align: center; color: #94a3b8; font-size: 0.85em;">
-            Data Update : 13 Oktober 2026 (Capaian TW III)
+            Data Update : 13 Oktober 2026, 10.00 WIB | Capaian TW III
         </div>
     """, unsafe_allow_html=True)
 
