@@ -165,7 +165,7 @@ def get_numeric_value(val):
 
 @st.cache_data
 def load_data_v6():
-    df = pd.read_excel('sumberdata.xlsx')
+    df = pd.read_excel('data_dashboard_latsar_data update 12 oktober 2026.xlsx')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     return df
 
@@ -202,7 +202,7 @@ try:
     # Footer simple
     st.markdown("""
         <br><div style="text-align: center; color: #94a3b8; font-size: 0.85em;">
-            Data Update : 13 Juli 2026 (Capaian TW II)
+            Data Update : 13 Oktober 2026 (Capaian TW III)
         </div>
     """, unsafe_allow_html=True)
 
